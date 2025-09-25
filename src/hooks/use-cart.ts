@@ -2,14 +2,21 @@
 
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { Product, CartItem } from '@/types'
+import { Product } from '@/types'
+
+interface CartItem {
+  product: Product
+  quantity: number
+}
 
 interface CartStore {
   items: CartItem[]
+  isOpen: boolean
   addItem: (product: Product) => void
   removeItem: (productId: string) => void
   updateQuantity: (productId: string, quantity: number) => void
   clearCart: () => void
+  toggleCart: () => void
   getTotalPrice: () => number
   getTotalItems: () => number
 }
@@ -18,6 +25,7 @@ export const useCart = create<CartStore>()(
   persist(
     (set, get) => ({
       items: [],
+      isOpen: false,
       
       addItem: (product: Product) => {
         const { items } = get()
@@ -58,6 +66,8 @@ export const useCart = create<CartStore>()(
       },
       
       clearCart: () => set({ items: [] }),
+      
+      toggleCart: () => set(state => ({ isOpen: !state.isOpen })),
       
       getTotalPrice: () => {
         const { items } = get()
