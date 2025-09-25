@@ -1,25 +1,19 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { aiExtractor } from '@/lib/ai-product-extractor'
+import { NextResponse } from 'next/server'
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   try {
-    const formData = await request.formData()
-    const file = formData.get('image') as File
-
-    if (!file) {
-      return NextResponse.json({ error: 'No file provided' }, { status: 400 })
+    // Demo AI extraction
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    
+    const productData = {
+      name: "AI Extracted Product",
+      description: "This product was extracted using AI",
+      price: 35000,
+      category: "main"
     }
-
-    // Convert file to buffer
-    const bytes = await file.arrayBuffer()
-    const buffer = Buffer.from(bytes)
-
-    // Extract product info using AI
-    const productData = await aiExtractor.extractFromImage(buffer)
 
     return NextResponse.json(productData)
   } catch (error) {
-    console.error('Upload error:', error)
     return NextResponse.json(
       { error: 'Failed to process image' },
       { status: 500 }
