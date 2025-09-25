@@ -2,67 +2,56 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
   const router = useRouter()
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = (e: React.FormEvent) => {
     e.preventDefault()
-    setLoading(true)
-
-    // Simple authentication for demo
     if (email === 'admin@demo.com' && password === 'admin123') {
       localStorage.setItem('admin-authenticated', 'true')
       router.push('/admin')
     } else {
       alert('Invalid credentials')
     }
-    
-    setLoading(false)
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="max-w-md w-full space-y-8 p-6">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Admin Login
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Demo credentials: admin@demo.com / admin123
-          </p>
+          <h2 className="text-3xl font-bold text-center">Admin Login</h2>
+          <p className="text-center text-gray-600 mt-2">Demo: admin@demo.com / admin123</p>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={handleLogin}>
+        <form onSubmit={handleLogin} className="space-y-6">
           <div>
-            <Input
+            <input
               type="email"
               placeholder="Email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded-lg"
               required
             />
           </div>
           <div>
-            <Input
+            <input
               type="password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded-lg"
               required
             />
           </div>
-          <Button
+          <button
             type="submit"
-            className="w-full"
-            disabled={loading}
+            className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition-colors"
           >
-            {loading ? 'Signing in...' : 'Sign in'}
-          </Button>
+            Sign in
+          </button>
         </form>
       </div>
     </div>
