@@ -16,7 +16,7 @@ A modern restaurant landing page with AI-powered product extraction.
 - **Database:** Supabase (PostgreSQL)
 - **AI:** Google Gemini API, LangChain
 - **Payment:** Midtrans
-- **Deployment:** Vercel
+- **Deployment:** Vercel / Netlify
 
 ## Quick Start
 
