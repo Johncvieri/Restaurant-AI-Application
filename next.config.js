@@ -10,7 +10,8 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
-    unoptimized: true,
+    domains: ['images.unsplash.com', 'via.placeholder.com'],
+    unoptimized: true
   }
 }
 
